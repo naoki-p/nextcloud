@@ -6,12 +6,15 @@
     reverse_proxy 127.0.0.1:80
   }
 
+  redir /.well-known/carddav /nextcloud/remote.php/dav 301
+  redir /.well-known/caldav /nextcloud/remote.php/dav 301
+  # redir /.well-known/webfinger /nextcloud/index.php/.well-known/webfinger 301
+  # redir /.well-known/nodeinfo /nextcloud/index.php/.well-known/nodeinfo 301
+  redir /.well-known/* /nextcloud/index.php{uri} 301
+
   log {
     output stdout
   }
-
-  redir /.well-known/carddav /remote.php/dav 301
-  redir /.well-known/caldav /remote.php/dav 301
 
   # .htaccess / data / config / ... shouldn't be accessible from outside
   @forbidden {
